@@ -1,7 +1,7 @@
+const config = require('./config')
 const CommentStream = require('./lib/comment-stream')
 const Tokeniser = require('./lib/tokeniser')
 const Classifier = require('./lib/classifier')
-const config = require('./config')
 
 const commentStream = new CommentStream(config.url)
 const tokeniser = new Tokeniser()
