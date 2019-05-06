@@ -34,7 +34,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: LOG_LEVEL
-          value: info
+          value: "info"
         - name: DB_HOST
           valueFrom:
             secretKeyRef:
