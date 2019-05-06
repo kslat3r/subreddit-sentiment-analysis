@@ -1,20 +1,32 @@
 const config = require('./config')
-const CommentStream = require('./lib/comment-stream')
+const Logger = require('./lib/logger')
+const DB = require('./lib/db')
+const Scraper = require('./lib/scraper')
 const Tokeniser = require('./lib/tokeniser')
 const Classifier = require('./lib/classifier')
+const Score = require('./lib/score')
 
-const commentStream = new CommentStream(config.url)
-const tokeniser = new Tokeniser()
-const classifier = new Classifier(config.lang)
+const logger = new Logger(config.logger)
+const db = new DB(config.db, logger)
 
-commentStream.on('comment', (comment) => {
-  const tokens = tokeniser.tokenise(comment.body)
-  const score = classifier.score(tokens)
+db.on('connection', () => {
+  const scraper = new Scraper(config.scraper, logger)
+  const tokeniser = new Tokeniser(logger)
+  const classifier = new Classifier(config.classifier, logger)
 
-  score.subreddit = comment.subreddit
-  score.comment = comment.body
+  scraper.on('comments', async (comments) => {
+    for (const comment of comments) {
+      const tokens = tokeniser.tokenise(comment.body)
+      const classification = classifier.classify(tokens)
+
+      await new Score(classification, comment.subreddit, logger)
+        .save(db)
+    }
+  })
+
+  scraper.on('error', err => logger.error(err))
+
+  scraper.start()
 })
 
-commentStream.on('error', err => console.error(err))
-
-commentStream.start()
+db.on('error', err => logger.error(err))
