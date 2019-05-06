@@ -16,7 +16,7 @@ jobs:
             gcloud --quiet config set project subreddit-sentiment-analysis
             gcloud --quiet config set compute/zone europe-west2-a
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-            gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+            gcloud --quiet container clusters get-credentials subreddit-sentiment-analysis
       - run: 
           name: Create Docker image
           command: docker build -t subreddit-sentiment-analysis:${CIRCLE_SHA1} .
@@ -40,4 +40,3 @@ workflows:
           filters:
             branches:
               only: master
-          context: subreddit-sentiment-analysis
