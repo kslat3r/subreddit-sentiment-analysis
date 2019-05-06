@@ -35,6 +35,8 @@ spec:
         env:
         - name: LOG_LEVEL
           value: "info"
+        - name: SCRAPER_NUM_CACHED_DUPLICATES
+          value: "1000"
         - name: DB_HOST
           valueFrom:
             secretKeyRef:
