@@ -11,13 +11,16 @@ jobs:
           command: apt-get install -qq -y gettext
       - run:
           name: Setup Google Cloud SDK
-          command: | 
+          command: |
             echo $GOOGLE_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
             gcloud --quiet config set project subreddit-sentiment-analysis
             gcloud --quiet config set compute/zone europe-west2-a
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
             gcloud --quiet container clusters get-credentials ssanalysis
-      - run: 
+      - run:
+          name: Add GCP credentials to checkout
+          command: echo ${GOOGLE_APPLICATION_CREDENTIALS} > ./env/gcp-credentials.json
+      - run:
           name: Create Docker image
           command: docker build -t subreddit-sentiment-analysis:${CIRCLE_SHA1} .
       - run:
