@@ -1,6 +1,6 @@
 module.exports = {
   logger: {
-    level: process.env.LOG_LEVEL || 'debug'
+    level: process.env.LOG_LEVEL || 'info'
   },
   db: {
     host: process.env.DB_HOST || 'localhost',
@@ -15,5 +15,10 @@ module.exports = {
   },
   classifier: {
     lang: process.env.CLASSIFIER_LANG || 'en'
+  },
+  publisher: {
+    projectId: process.env.PUBLISHER_PROJECT_ID || 'subreddit-sentiment-analysis',
+    insertTopicName: process.env.PUBLISHER_INSERT_TOPIC_NAME || 'inserts',
+    updateTopicName: process.env.PUBLISHER_UPDATE_TOPIC_NAME || 'updates'
   }
 }
