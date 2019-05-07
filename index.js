@@ -5,6 +5,7 @@ const Scraper = require('./lib/scraper')
 const Tokeniser = require('./lib/tokeniser')
 const Classifier = require('./lib/classifier')
 const Publisher = require('./lib/publisher')
+const Subreddit = require('./lib/subreddit')
 const Score = require('./lib/score')
 
 const logger = new Logger(config.logger)
@@ -21,14 +22,30 @@ db.on('connection', async () => {
       const tokens = tokeniser.tokenise(comment.body)
       const classification = classifier.classify(tokens)
 
-      const score = new Score(classification, comment.subreddit, logger)
+      // create or update subreddit
 
-      score.on('insert', async (data) => {
-        await publisher.scoreInsert(data)
+      const subreddit = new Subreddit(comment.subreddit, logger)
+
+      subreddit.on('inserted', async (data) => {
+        await publisher.subredditInserted(data)
       })
 
-      score.on('update', async (data) => {
-        await publisher.scoreUpdate(data)
+      subreddit.on('updated', async (data) => {
+        await publisher.subredditUpdated(data)
+      })
+
+      const subredditId = await subreddit.save(db)
+
+      // create or update daily score
+
+      const score = new Score(subredditId, classification, logger)
+
+      score.on('inserted', async (data) => {
+        await publisher.scoreInserted(data)
+      })
+
+      score.on('updated', async (data) => {
+        await publisher.scoreUpdated(data)
       })
 
       await score.save(db)

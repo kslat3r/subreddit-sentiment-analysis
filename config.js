@@ -18,7 +18,8 @@ module.exports = {
   },
   publisher: {
     projectId: process.env.PUBLISHER_PROJECT_ID || 'subreddit-sentiment-analysis',
-    insertTopicName: process.env.PUBLISHER_INSERT_TOPIC_NAME || 'inserts',
-    updateTopicName: process.env.PUBLISHER_UPDATE_TOPIC_NAME || 'updates'
+    subredditInsertedTopicName: process.env.PUBLISHER_SUBREDDIT_INSERTED_TOPIC_NAME || 'subredditInserts',
+    subredditUpdatedTopicName: process.env.PUBLISHER_SUBREDDIT_UPDATED_TOPIC_NAME || 'subredditUpdates',
+    scoreUpdatedTopicName: process.env.PUBLISHER_SCORE_UPDATED_TOPIC_NAME || 'scoreUpdates'
   }
 }
