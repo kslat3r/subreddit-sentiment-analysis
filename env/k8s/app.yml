@@ -33,10 +33,8 @@ spec:
         image: gcr.io/subreddit-sentiment-analysis/subreddit-sentiment-analysis:${CIRCLE_SHA1}
         imagePullPolicy: Always
         env:
-        - name: LOG_LEVEL
-          value: "info"
-        - name: SCRAPER_NUM_CACHED_DUPLICATES
-          value: "1000"
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/usr/src/app/env/gcp-credentials.json"
         - name: DB_HOST
           valueFrom:
             secretKeyRef:
