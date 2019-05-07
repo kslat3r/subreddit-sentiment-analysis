@@ -10,7 +10,7 @@ module.exports = {
   },
   scraper: {
     url: process.env.SCRAPER_URL || 'https://www.reddit.com/r/all/comments/.json?limit=100',
-    intervalMs: process.env.SCRAPER_INTERVAL_MS ? parseInt(process.env.SCRAPER_INTERVAL_MS, 10) : 1000,
+    intervalMs: process.env.SCRAPER_INTERVAL_MS ? parseInt(process.env.SCRAPER_INTERVAL_MS, 10) : 5000,
     numCachedDuplicates: process.env.SCRAPER_NUM_CACHED_DUPLICATES ? parseInt(process.env.SCRAPER_NUM_CACHED_DUPLICATES, 10) : 1000
   },
   classifier: {
