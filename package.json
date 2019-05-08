@@ -1,5 +1,5 @@
 {
-  "name": "subreddit-sentiment-analysis",
+  "name": "subreddit-sentiment-analysis-scraper",
   "version": "1.0.0",
   "description": "Analyses the sentiment of subreddits over time",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kslat3r/subreddit-sentiment-analysis.git"
+    "url": "git+https://github.com/kslat3r/subreddit-sentiment-analysis-scraper.git"
   },
   "author": "Ed Kelly",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kslat3r/subreddit-sentiment-analysis/issues"
+    "url": "https://github.com/kslat3r/subreddit-sentiment-analysis-scraper/issues"
   },
-  "homepage": "https://github.com/kslat3r/subreddit-sentiment-analysis#readme",
+  "homepage": "https://github.com/kslat3r/subreddit-sentiment-analysis-scraper#readme",
   "dependencies": {
     "@google-cloud/pubsub": "^0.28.1",
     "mysql": "^2.17.1",
