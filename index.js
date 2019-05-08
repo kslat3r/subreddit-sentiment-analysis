@@ -53,6 +53,8 @@ db.on('connection', async () => {
   })
 
   scraper.on('error', err => logger.error(err.message))
+
+  scraper.start()
 })
 
 db.on('error', err => logger.error(err.message))
