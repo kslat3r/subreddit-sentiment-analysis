@@ -45,7 +45,7 @@ db.on('connection', async () => {
 
       // create average
 
-      const average = new Average(subredditId)
+      const average = new Average(subredditId, logger)
 
       average.on('computed', async (data) => {
         await publisher.averageComputed(data)
