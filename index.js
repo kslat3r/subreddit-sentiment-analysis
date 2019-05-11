@@ -7,6 +7,7 @@ const Classifier = require('./lib/classifier')
 const Publisher = require('./lib/publisher')
 const Subreddit = require('./lib/subreddit')
 const Score = require('./lib/score')
+const Average = require('./lib/average')
 
 const logger = new Logger(config.logger)
 const db = new DB(config.db, logger)
@@ -36,19 +37,21 @@ db.on('connection', async () => {
 
       const subredditId = await subreddit.save(db)
 
-      // create or update daily score
+      // create score
 
       const score = new Score(subredditId, classification, logger)
 
-      score.on('inserted', async (data) => {
-        await publisher.scoreInserted(data)
-      })
-
-      score.on('updated', async (data) => {
-        await publisher.scoreUpdated(data)
-      })
-
       await score.save(db)
+
+      // create average
+
+      const average = new Average(subredditId)
+
+      average.on('computed', async (data) => {
+        await publisher.averageComputed(data)
+      })
+
+      average.compute(db)
     }
   })
 

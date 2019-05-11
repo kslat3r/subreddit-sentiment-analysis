@@ -20,6 +20,6 @@ module.exports = {
     projectId: process.env.PUBLISHER_PROJECT_ID || 'subreddit-sentiment-analysis',
     subredditInsertedTopicName: process.env.PUBLISHER_SUBREDDIT_INSERTED_TOPIC_NAME || 'subredditInserts',
     subredditUpdatedTopicName: process.env.PUBLISHER_SUBREDDIT_UPDATED_TOPIC_NAME || 'subredditUpdates',
-    scoreUpdatedTopicName: process.env.PUBLISHER_SCORE_UPDATED_TOPIC_NAME || 'scoreUpdates'
+    averageComputedTopicName: process.env.PUBLISHER_AVERAGE_COMPUTED_TOPIC_NAME || 'computedAverages'
   }
 }
